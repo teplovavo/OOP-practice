@@ -72,3 +72,25 @@ class Adventurer extends Character {
       super.roll();
     }
   }
+
+
+  // create a Companion class with properties and methods specific to the companions
+  class Companion extends Character {
+    constructor(name, type) {
+      super(name); 
+      this.type = type; 
+    }
+  }
+
+// Recreate Robin and his companions using the new classes
+const robin1 = new Adventurer("Robin", "Fighter");
+robin1.companion = new Companion("Leo", "Cat");
+robin1.companion.companion = new Companion("Frank", "Flea");
+robin1.companion.companion.inventory = ["small hat", "sunglasses"];
+
+robin1.scout();
+
+
+/////////////////////////////////////////////////////////////
+
+console.log("Part 4: Class Uniforms")
