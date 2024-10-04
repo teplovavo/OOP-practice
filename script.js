@@ -1,9 +1,9 @@
-console.log("Let's start!")
+console.log("Let's start!");
 
 
 
 ////////////////////////////////////////////////////////////
-console.log("Part 1: Humble Beginnings")
+console.log("Part 1: Humble Beginnings");
 
 const adventurer = {
     name: "Robin",
@@ -93,4 +93,77 @@ robin1.scout();
 
 /////////////////////////////////////////////////////////////
 
-console.log("Part 4: Class Uniforms")
+console.log("Part 4: Class Uniforms");
+
+class CharacterWithStatic {
+    static MAX_HEALTH = 100; 
+  
+    constructor(name) {
+      this.name = name;
+      this.health = CharacterWithStatic.MAX_HEALTH;
+      this.inventory = [];
+    }
+  
+    roll(mod = 0) {
+      const result = Math.floor(Math.random() * 20) + 1 + mod;
+      console.log(`${this.name} rolled a ${result}.`);
+    }
+  }
+  console.log(`Max health for all characters: ${CharacterWithStatic.MAX_HEALTH}`);
+  
+
+
+
+  class AdventurerWithStatic extends CharacterWithStatic {
+    static ROLES = ["Fighter", "Healer", "Wizard"];
+  
+    constructor(name, role) {
+      super(name);
+      if (!AdventurerWithStatic.ROLES.includes(role)) {
+        throw new Error("Invalid role");
+      }
+      this.role = role;
+      this.inventory.push("bedroll", "50 gold coins");
+    }
+  }
+  
+
+  console.log(`Available roles for adventurers: ${AdventurerWithStatic.ROLES.join(", ")}`);
+
+  /////////////////////////////////////////////////////////////
+
+console.log("Part 5: Gather your Party");
+
+class AdventurerFactory {
+    constructor(role) {
+      this.role = role;
+      this.adventurers = [];
+    }
+  
+    // Generate adventurer and add to array
+    generate(name) {
+      const newAdventurer = new AdventurerWithStatic(name, this.role);
+      this.adventurers.push(newAdventurer);
+    }
+  
+    // Find adventurer by index
+    findByIndex(index) {
+      return this.adventurers[index];
+    }
+  
+    // Find adventurer by name
+    findByName(name) {
+      return this.adventurers.find(a => a.name === name);
+    }
+  }
+  
+  // Example of creating a healer factory
+  const healers = new AdventurerFactory("Healer");
+  healers.generate("Robin")
+
+  console.log(`Found adventurer: ${healers.findByName("Robin")?.name || "not found"}`);
+
+
+    /////////////////////////////////////////////////////////////
+
+console.log("Part 6: Developing Skills");
