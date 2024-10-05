@@ -167,3 +167,38 @@ class AdventurerFactory {
     /////////////////////////////////////////////////////////////
 
 console.log("Part 6: Developing Skills");
+
+// Adding duel method to AdventurerWithStatic class from Part 4
+
+class DuelAdventurer extends AdventurerWithStatic {
+    duel(opponent) {
+      console.log(`${this.name} and ${opponent.name} are dueling...`);
+      
+      // Continue duel until one character's health drops to 50 or below
+      while (this.health > 50 && opponent.health > 50) {
+        const myRoll = this.roll(); // Current character's roll
+        const opponentRoll = opponent.roll(); // Opponent's roll
+  
+        // The character with the lower roll loses 1 health
+        if (myRoll > opponentRoll) {
+          opponent.health -= 1;
+        } else {
+          this.health -= 1;
+        }
+  
+        // Log the health of both characters after each round
+        console.log(`${this.name}: ${this.health} health | ${opponent.name}: ${opponent.health} health`);
+      }
+  
+      // Determine the winner based on remaining health
+      const winner = this.health > 50 ? this.name : opponent.name;
+      console.log(`${winner} wins the duel!`);
+    }
+  }
+  
+  // Testing the duel
+  const fighter = new DuelAdventurer("Robin", "Fighter");
+  const wizard = new DuelAdventurer("Merlin", "Wizard");
+  
+  fighter.duel(wizard);
+  
